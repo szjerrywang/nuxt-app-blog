@@ -1,12 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
-  devtools: { enabled: true },
-
-  future: {
-    compatibilityVersion: 4
-  },
-
   modules: [
     '@nuxt/content',
     '@nuxt/eslint',
@@ -15,24 +10,69 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/scripts',
     '@nuxt/test-utils',
-    '@nuxt/ui'
+    '@nuxtjs/i18n',
+    '@nuxtjs/color-mode',
+    'shadcn-nuxt',
   ],
+  devtools: { enabled: true },
 
-  fonts: {
-    
-    providers: {
-      google: false,
-      googleicons: false,
-      adobe: false
-    }
+  css: ['~/assets/css/main.css'],
+
+  colorMode: {
+    classSuffix: '',
+  },
+
+  future: {
+    compatibilityVersion: 4,
+  },
+
+  compatibilityDate: '2024-11-01',
+
+  vite: {
+    plugins: [
+      tailwindcss(),
+    ],
   },
 
   eslint: {
     config: {
-      stylistic: true
-    }
+      stylistic: true,
+    },
   },
 
-  css: ['~/assets/css/main.css'],
+  fonts: {
 
+    providers: {
+      google: false,
+      googleicons: false,
+      adobe: false,
+    },
+  },
+
+  i18n: {
+    locales: [{
+      code: 'zh',
+      name: 'Chinese',
+      file: 'zh.json',
+    }, {
+      code: 'en',
+      name: 'English',
+      file: 'en.json',
+    }],
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
+  },
+
+  shadcn: {
+    /**
+     * Prefix for all the imported component
+     */
+    prefix: '',
+    /**
+     * Directory that the component lives in.
+     * @default "./components/ui"
+     */
+    componentDir: '~/components/ui',
+  },
 })
